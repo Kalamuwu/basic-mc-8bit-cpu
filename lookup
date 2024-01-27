@@ -1,0 +1,30 @@
+operational commands
+HEX   SYM   DESC
+
+0x0   nop   no operation
+0x1   hlt   halt program clock
+0x2   sto   set &reg <-- &dat if dat != &OUTPUT; else set &reg <-- rand[0x00, 0xFF]
+0x3   pop   set &dat <-- &reg
+0x4   set   set &dat <-- data2 if dat != &INPUT; else set &reg <-- data2
+0x5   add   set &reg <-- [ &reg + &dat ]
+0x6   jmp   jump to line number data2
+0x7   jmc   jump to line number data2 if &reg == 0xFF
+0x8   neg   set &dat <-- ( NOT &dat ) + 0x01
+0x9   rgt   set &reg == 0xFF if (&reg >  &dat) else 0x00
+0xA   rlt   set &reg == 0xFF if (&reg <  &dat) else 0x00
+0xB   req   set &reg == 0xFF if (&reg == &dat) else 0x00
+0xC   not   set &reg <-- ~&reg
+0xD   and   set &reg <-- [ &reg AND &dat ]
+0xE   xor   set &reg <-- [ &reg XOR &dat ]
+0xF   orr   set &reg <-- [ &reg OR  &dat ]
+
+-----
+
+compiler-only commands
+SYM   DESC
+
+def   define and allocate variable
+fre   remove variable binding and deallocate
+lbl   label the next line with a jump point name
+cmt   comment; noop
+rnd   sets register to random number between 0x00 and 0xFF (alias to 'sto &OUTPUT')
